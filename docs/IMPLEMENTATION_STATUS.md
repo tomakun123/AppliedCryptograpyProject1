@@ -34,13 +34,13 @@ Implemented with directional logic:
 
 Created [test_protocol.py](test_protocol.py) with 5 verification tests:
 
-| Test | Result | Notes |
-|------|--------|-------|
-| Basic Sending | ✅ Pass | Both parties can send and advance positions |
-| Zone Separation | ✅ Pass | Alice/Bob in Zone 1, Charlie/Dave in Zone 2 |
-| Gap Constraint | ✅ Pass | Parties maintain d=10 gap, stop when gap=9 |
+|        Test        |  Result  | Notes |
+-----------------------------------------------------------------------------
+| Basic Sending      | ✅ Pass | Both parties can send and advance positions |
+| Zone Separation    | ✅ Pass | Alice/Bob in Zone 1, Charlie/Dave in Zone 2 |
+| Gap Constraint     | ✅ Pass | Parties maintain d=10 gap, stop when gap=9 |
 | Single Party (S.1) | ✅ Pass | 51.5% waste (expected ~50%) |
-| Cross-Zone (S.2) | ✅ Pass | 2.2% waste (expected ~0%) |
+| Cross-Zone (S.2)   | ✅ Pass | 2.2% waste (expected ~0%) |
 
 ## Key Implementation Details
 
