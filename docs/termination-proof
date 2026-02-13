@@ -1,0 +1,48 @@
+# Proof by Contradiction  
+## No Pad Collision in the Parallel Pairs Protocol
+
+### Claim
+No two parties ever use the same pad index.
+
+---
+
+## Proof
+
+Assume for contradiction that two distinct parties use the same pad index `i`.
+
+Since the pad space is divided into two disjoint zones, any collision must occur within the same zone.
+
+Within each zone:
+
+- One party moves strictly right (+1 direction).
+- The other moves strictly left (-1 direction).
+- Each message consumes a contiguous interval of pad indices.
+
+Let:
+- Party A be right-moving.
+- Party B be left-moving.
+
+For both parties to use pad `i`, their consumed intervals must overlap.
+
+However, before sending a message, each party must satisfy the safety condition:
+
+Right-moving party:
+next_end < partner_last_index - d
+
+
+Left-moving party:
+next_start > partner_last_index + d
+
+
+These conditions enforce that at least `d` unused pads remain between the two parties.
+
+Thus:
+
+- Party A's interval must end strictly before B's last-used index minus `d`.
+- Party B's interval must begin strictly after A's last-used index plus `d`.
+
+Therefore, their intervals cannot overlap.
+
+This contradicts the assumption that both used pad `i`.
+
+Hence, pad collision is impossible.
