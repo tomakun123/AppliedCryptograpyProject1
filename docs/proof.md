@@ -18,7 +18,25 @@ Used Pads:
 Sending Conditions:
     A party member is allowed to use a pad and send messaages if and only if:
         pi ∈/ (not an element of) U
-        Two parties cannot choose the same pad index, and their claimed pad regions never intersect 
-        OR 
-        par1[ind]​≤par2[ind]​<par3[ind]​≤par4[ind]​, where ind represents the index of that party member
+        Two parties cannot choose the same pad index, and their claimed pad regions never intersect  
     
+**Invariants**
+
+Used Pads:
+    Every pad index enters U at most once
+Party Index:
+    At all times, par1[ind]​≤par2[ind]​<par3[ind]​≤par4[ind]​, where ind represents the index of that party member
+
+Proof these invariants hold:
+    At time 0:
+        No pads have been used, U = {} (empty set)
+        By initial positions:
+            par1 --> starts at 0
+            par2 --> starts at [(n//2)-1]
+            par3 --> starts at (n//2)
+            par4 --> starts at n-1
+        So, par2[index] < par3[index] holds, and par3[ind]​≤par4[ind], par1[ind]​≤par2[ind] while n≥2 where n is the length of the message.
+    So both invariants hold at time 0.
+
+    
+
