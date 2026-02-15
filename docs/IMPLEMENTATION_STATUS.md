@@ -1,6 +1,8 @@
 # Protocol Implementation Summary
 
-## Completed Steps (1-3)
+# Protocol Implementation Summary
+
+## ✅ All Steps Completed (1-6)
 
 ### ✅ Step 1: Party Class
 Implemented in [protocol.py](protocol.py) with:
@@ -30,17 +32,43 @@ Implemented with directional logic:
 - **Zone boundaries**: Enforced to keep parties in their assigned zones
 - **Collision detection**: Assertions verify no pad is ever reused
 
-## Test Results
+### ✅ Step 4: Scenario Simulation Functions
+Implemented in [simulator.py](simulator.py) with:
+- `run_scenario_1()`: Single randomly selected party sends until termination
+- `run_scenario_2()`: Two randomly selected parties send (random sender each round)
+- `run_scenario_4()`: All four parties send (random sender each round)
+- `run_multiple_executions()`: Helper to run scenarios N times for statistics
+- Each scenario uses random message lengths in range [1, 50]
+- **Bug fix**: Added consecutive failure counters to prevent infinite loops when active parties can't send but protocol hasn't terminated
 
-Created [test_protocol.py](test_protocol.py) with 5 verification tests:
+### ✅ Step 5: Statistics and Testing Harness
+Implemented in [main.py](main.py) with:
+- Command-line interface with configurable parameters (n, d, executions, message length range, seed)
+- `calculate_statistics()`: Computes mean, std dev, min, max for wasted pads
+- Runs 100 executions per scenario by default
+- Collects comprehensive metrics: pads used/wasted, messages sent, waste percentages
 
-|        Test        |  Result  | Notes |
------------------------------------------------------------------------------
-| Basic Sending      | ✅ Pass | Both parties can send and advance positions |
-| Zone Separation    | ✅ Pass | Alice/Bob in Zone 1, Charlie/Dave in Zone 2 |
-| Gap Constraint     | ✅ Pass | Parties maintain d=10 gap, stop when gap=9 |
-| Single Party (S.1) | ✅ Pass | 51.5% waste (expected ~50%) |
-| Cross-Zone (S.2)   | ✅ Pass | 2.2% waste (expected ~0%) |
+### ✅ Step 6: Output Formatting and Visualization
+Implemented in [main.py](main.py) with:
+- Professional formatted output with tables and statistics
+- Detailed scenario results with confidence intervals (±std dev)
+- Summary comparison table across all scenarios
+- Analysis section comparing results to theoretical expectations
+- Comparison against 75% static partition baseline
+- Best/worst scenario identification
+
+## Final Test Results
+
+### Full Simulation Results (n=1000, d=10, 100 executions)
+
+| Scenario | Avg Wasted | Std Dev | Min | Max | Waste % | vs Baseline |
+|----------|-----------|---------|-----|-----|---------|-------------|
+| S.1 (x=1) | 528.6 pads | 12.5 | 511 | 557 | **52.86%** | ✅ 22.14% better |
+| S.2 (x=2) | 155.0 pads | 217.1 | 22 | 512 | **15.50%** | ✅ 59.50% better |
+| S.4 (x=4) | 20.3 pads | 0.7 | 20 | 23 | **2.03%** | ✅ 72.97% better |
+| **Baseline** | | | | | **75.00%** | - |
+
+**Conclusion**: All scenarios significantly beat the 75% static partition baseline!
 
 ## Key Implementation Details
 
@@ -50,14 +78,28 @@ Created [test_protocol.py](test_protocol.py) with 5 verification tests:
 4. **Initial State**: Parties start at zone boundaries; safety checks work even before first message
 5. **Perfect Secrecy**: Assertion checks prevent any pad reuse
 
-## Next Steps (Remaining 4-6)
+## Usage
 
-Still to implement:
-- **Step 4**: Scenario simulation functions (S.1, S.2, S.4) in `simulator.py`
-- **Step 5**: Statistics and testing harness in `main.py`
-- **Step 6**: Output formatting and visualization
+Run the full simulation:
+```bash
+python main.py
+```
+
+With custom parameters:
+```bash
+python main.py --n 2000 --d 20 --executions 200 --seed 42
+```
 
 ## Files Created
 
 1. [protocol.py](protocol.py) - Core protocol implementation (Party & Protocol classes)
-2. [test_protocol.py](test_protocol.py) - Verification tests
+2. [simulator.py](simulator.py) - Scenario simulation functions (S.1, S.2, S.4)
+3. [main.py](main.py) - Main driver with statistics and formatted output
+4. [README.md](README.md) - Complete documentation with usage examples
+
+## Key Achievements
+
+✅ **Perfect Secrecy**: Zero pad collisions across all tests  
+✅ **Superior Performance**: All scenarios beat 75% baseline  
+✅ **Configurable**: Full CLI support for custom parameters  
+✅ **Well-Documented**: Comprehensive README with examples

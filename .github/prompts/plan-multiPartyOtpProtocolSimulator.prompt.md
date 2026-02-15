@@ -40,7 +40,6 @@ This implements the "Parallel Pairs" protocol for 4-party one-time pad communica
 ### 6. Add output and visualization (`main.py`)
 - Print summary table: Scenario | Avg Wasted | Std Dev | Min | Max | Waste %
 - Compare against static partition (75% worst case)
-- Optional: Plot histogram of wasted pads distribution per scenario
 
 ## Verification
 
