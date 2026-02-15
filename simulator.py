@@ -1,8 +1,3 @@
-"""
-Scenario simulation functions for the multi-party OTP protocol.
-Implements S.1, S.2, and S.4 test scenarios.
-"""
-
 import random
 from protocol import Protocol
 
@@ -180,32 +175,3 @@ def run_multiple_executions(scenario_func, num_executions, n, d, min_msg_length=
         results.append(result)
     
     return results
-
-
-if __name__ == "__main__":
-    # Quick test of scenarios
-    print("Testing Scenario Functions")
-    print("=" * 60)
-    
-    # Test S.1
-    print("\nScenario S.1 (1 active party):")
-    result = run_scenario_1(n=1000, d=10)
-    print(f"  Active: {result['active_party']}")
-    print(f"  Used: {result['used_pads']}, Wasted: {result['wasted_pads']} ({result['waste_percentage']:.1f}%)")
-    print(f"  Messages: {result['messages_sent']}")
-    
-    # Test S.2
-    print("\nScenario S.2 (2 active parties):")
-    result = run_scenario_2(n=1000, d=10)
-    print(f"  Active: {result['active_parties']}")
-    print(f"  Used: {result['used_pads']}, Wasted: {result['wasted_pads']} ({result['waste_percentage']:.1f}%)")
-    print(f"  Messages: {result['messages_sent']}")
-    
-    # Test S.4
-    print("\nScenario S.4 (4 active parties):")
-    result = run_scenario_4(n=1000, d=10)
-    print(f"  Active: {result['active_parties']}")
-    print(f"  Used: {result['used_pads']}, Wasted: {result['wasted_pads']} ({result['waste_percentage']:.1f}%)")
-    print(f"  Messages: {result['messages_sent']}")
-    
-    print("\n" + "=" * 60)

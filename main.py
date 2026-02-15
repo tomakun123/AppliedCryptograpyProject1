@@ -1,8 +1,3 @@
-"""
-Main driver for multi-party OTP protocol simulation.
-Runs scenarios S.1, S.2, and S.4, collects statistics, and displays results.
-"""
-
 import argparse
 import statistics
 from simulator import run_scenario_1, run_scenario_2, run_scenario_4, run_multiple_executions
@@ -101,59 +96,6 @@ def print_summary_table(s1_stats, s2_stats, s4_stats):
     print(f"{'Baseline':<12} {'(static partition worst case)':>45} {'75.00%':>12}")
     print("=" * 80)
 
-
-def print_analysis(s1_stats, s2_stats, s4_stats):
-    """Print analysis comparing results to theoretical expectations."""
-    print("\nAnalysis:")
-    print("-" * 80)
-    
-    # S.1 Analysis
-    print(f"\nS.1 (1 active party):")
-    print(f"  Expected waste: ~50% (one zone completely unused)")
-    print(f"  Actual waste: {s1_stats['avg_waste_pct']:.2f}%")
-    if s1_stats['avg_waste_pct'] < 75:
-        print(f"  ✓ Better than static partition (75%)")
-    
-    # S.2 Analysis
-    print(f"\nS.2 (2 active parties):")
-    print(f"  Expected waste: ~25% average")
-    print(f"    - Same zone (Alice & Bob or Charlie & Dave): ~50%")
-    print(f"    - Different zones (Alice & Charlie, etc.): ~0%")
-    print(f"  Actual waste: {s2_stats['avg_waste_pct']:.2f}%")
-    if s2_stats['avg_waste_pct'] < 75:
-        print(f"  ✓ Better than static partition (75%)")
-    
-    # S.4 Analysis
-    print(f"\nS.4 (4 active parties):")
-    print(f"  Expected waste: Minimal (optimal zone utilization)")
-    print(f"  Actual waste: {s4_stats['avg_waste_pct']:.2f}%")
-    if s4_stats['avg_waste_pct'] < 75:
-        print(f"  ✓ Better than static partition (75%)")
-    
-    # Overall conclusion
-    print(f"\nConclusion:")
-    all_better = (s1_stats['avg_waste_pct'] < 75 and 
-                  s2_stats['avg_waste_pct'] < 75 and 
-                  s4_stats['avg_waste_pct'] < 75)
-    
-    if all_better:
-        print(f"  ✓ All scenarios beat the static partition baseline (75%)")
-        print(f"  ✓ The Parallel Pairs protocol is superior to static partitioning")
-    else:
-        print(f"  ⚠ Some scenarios did not beat the baseline")
-    
-    # Best and worst scenarios
-    scenarios = [
-        ('S.1', s1_stats['avg_waste_pct']),
-        ('S.2', s2_stats['avg_waste_pct']),
-        ('S.4', s4_stats['avg_waste_pct'])
-    ]
-    scenarios.sort(key=lambda x: x[1])
-    
-    print(f"\n  Best efficiency: {scenarios[0][0]} with {scenarios[0][1]:.2f}% waste")
-    print(f"  Worst efficiency: {scenarios[-1][0]} with {scenarios[-1][1]:.2f}% waste")
-
-
 def main():
     """Main function to run the simulation."""
     # Parse command-line arguments
@@ -194,7 +136,7 @@ def main():
         args.min_msg_len, args.max_msg_len
     )
     s1_stats = calculate_statistics(s1_results)
-    print("Done!")
+    print("Done")
     
     # Run Scenario S.2
     print("Running Scenario S.2 (2 active parties)...", end=" ", flush=True)
@@ -203,7 +145,7 @@ def main():
         args.min_msg_len, args.max_msg_len
     )
     s2_stats = calculate_statistics(s2_results)
-    print("Done!")
+    print("Done")
     
     # Run Scenario S.4
     print("Running Scenario S.4 (4 active parties)...", end=" ", flush=True)
@@ -212,7 +154,7 @@ def main():
         args.min_msg_len, args.max_msg_len
     )
     s4_stats = calculate_statistics(s4_results)
-    print("Done!")
+    print("Done")
     
     # Print detailed results
     print("\n" + "=" * 80)
@@ -225,14 +167,8 @@ def main():
     
     # Print summary table
     print_summary_table(s1_stats, s2_stats, s4_stats)
-    
-    # Print analysis
-    print_analysis(s1_stats, s2_stats, s4_stats)
-    
-    print("\n" + "=" * 80)
-    print("Simulation complete!")
-    print("=" * 80 + "\n")
 
+    print("Simulation complete!")
 
 if __name__ == "__main__":
     main()

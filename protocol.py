@@ -1,9 +1,3 @@
-"""
-Multi-Party One-Time Pad Protocol Implementation
-Implements the "Parallel Pairs" protocol for 4-party secure communication
-"""
-
-
 class Party:
     """
     Represents a party in the protocol.
