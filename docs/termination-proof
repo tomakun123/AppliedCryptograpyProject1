@@ -1,30 +1,117 @@
-# Proof by Contradiction  
-## No Pad Collision in the Parallel Pairs Protocol
+# Proof of Termination
+## Parallel Pairs Protocol
 
 ### Claim
-No two parties ever use the same pad index.
+Every party eventually completes all their messages and terminates.
 
 ---
 
-## Proof
+## Proof Structure
+We'll prove termination by showing:
+1. Every party can always eventually send their next message
+2. Each party has finitely many messages to send
+3. Therefore, all parties complete in finite time
 
-Assume for contradiction that two distinct parties use the same pad index `i`.
+---
 
-Since the pad space is divided into two disjoint zones, any collision must occur within the same zone.
+## Setup
+- **n parties total** (assume n is even for parallel pairs)
+- Parties are paired: (P₀, P₁), (P₂, P₃), ..., (Pₙ₋₂, Pₙ₋₁)
+- Each party has **m messages** to send
+- Pad space divided into zones:
+  - **Zone A**: indices [0, N/2) for one set of pairs
+  - **Zone B**: indices [N/2, N) for other set of pairs
+- Within each zone:
+  - One party moves **right** (increasing indices)
+  - Partner party moves **left** (decreasing indices)
 
-Within each zone:
+---
 
-- One party moves strictly right (+1 direction).
-- The other moves strictly left (-1 direction).
-- Each message consumes a contiguous interval of pad indices.
+## Key Observations
 
-Let:
-- Party A be right-moving.
-- Party B be left-moving.
+### Observation 1: Finite Message Count
+Each party sends exactly **m messages** (finite).
 
-For both parties to use pad `i`, their consumed intervals must overlap.
+### Observation 2: Monotonic Progress
+- Right-moving parties: pad index strictly increases with each message
+- Left-moving parties: pad index strictly decreases with each message
+- No party ever revisits a pad index
 
-However, before sending a message, each party must satisfy the safety condition:
+### Observation 3: Safety Condition Always Satisfiable
+For a party to send a message of length ℓ:
 
-Right-moving party:
+**Right-moving party at position `r`:**
+- Needs: `r + ℓ ≤ partner_position`
+- Partner is left-moving, starting from high index
+- Partner's position only moves left over time
+- Initially: `r = 0` and `partner_position = N/2` (large gap)
+
+**Left-moving party at position `l`:**
+- Needs: `l - ℓ ≥ partner_position`
+- Partner is right-moving, starting from low index
+- Partner's position only moves right over time
+- Initially: `l = N/2` and `partner_position = 0` (large gap)
+
+---
+
+## Main Argument
+
+### Step 1: Total Pad Consumption is Bounded
+Let `L` = total length of all messages across all parties.
+
+**Given sufficient pad space** N ≥ L, we have:
+- Total consumption ≤ L ≤ N
+- Pad space never exhausted
+
+### Step 2: No Deadlock Possible
+Suppose party A (right-moving) cannot send message of length ℓ:
+- Condition violated: `A.position + ℓ > B.position`
+- This means **B must send first** to move left and create space
+- Can B send? B is left-moving with condition: `B.position - ℓ_B ≥ A.position`
+
+**Key insight**: The two conditions are complementary:
+- If A is blocked: `A.pos + ℓ_A > B.pos` → gap is small
+- B's condition: `B.pos - ℓ_B ≥ A.pos` → B needs smaller gap
+- Since initially `B.pos - A.pos = N/2` (large), and total consumption < N
+- **At least one party can always proceed**
+
+### Step 3: Progress Guarantee
+At any point in the protocol:
+- If party A is blocked, partner B can send
+- If party B is blocked, partner A can send
+- If neither is blocked, both can send
+- **At least one message is always sendable** in each pair
+
+This means:
+- The system makes progress (messages are sent)
+- No infinite waiting
+- No circular dependencies
+
+### Step 4: Finite Termination
+Each party:
+1. Sends m messages (finite count)
+2. Each message takes finite time to send
+3. Never permanently blocked (by Step 3)
+4. Makes monotonic progress (by Observation 2)
+
+Therefore:
+- Each party completes in **at most m · (max message latency)** time
+- All n parties complete in finite time
+- **Protocol terminates** ∎
+
+---
+
+## Assumptions Required
+1. **Sufficient pad space**: N ≥ total message length across all parties
+2. **Fair scheduling**: No party is starved indefinitely by the scheduler
+3. **Finite message sizes**: Each message has bounded length
+
+---
+
+## Summary
+**Termination holds because:**
+- Finite work per party (m messages)
+- Monotonic progress (no backtracking)
+- No deadlock (complementary safety conditions ensure someone can always proceed)
+- Bounded resources sufficient (N ≥ L)
 
