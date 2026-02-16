@@ -17,34 +17,3 @@ At termination:
 
 For the right-moving party:
 
-current_index ≥ partner_last_index - d
-
-
-This implies:
-
-Remaining gap ≤ d
-
-
-Thus, at most `d` unused pads remain between the two parties in that zone.
-
-Since the protocol has 2 independent zones:
-
-Total wasted pads ≤ 2d
-
-
----
-
-## Waste Percentage
-
-Waste ≤ (2d / n)
-
-
-As `n → ∞`:
-
-Waste percentage → 0
-
-
-Therefore:
-
-- Waste is bounded by a constant.
-- The protocol is asymptotically efficient.
