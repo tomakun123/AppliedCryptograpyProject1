@@ -26,10 +26,7 @@ def run_scenario_1(n, d, min_msg_length=1, max_msg_length=50):
     
     # Send messages until protocol terminates
     while not protocol.is_terminated():
-        # Random message length
         msg_length = random.randint(min_msg_length, max_msg_length)
-        
-        # Attempt to send from active party
         success = protocol.attempt_send(active_party, msg_length)
         
         if success:
@@ -76,13 +73,10 @@ def run_scenario_2(n, d, min_msg_length=1, max_msg_length=50):
     
     # Send messages until protocol terminates or active parties can't send
     while not protocol.is_terminated() and consecutive_failures < max_consecutive_failures:
-        # Random message length
         msg_length = random.randint(min_msg_length, max_msg_length)
         
-        # Randomly choose which of the 2 active parties sends
         sender = random.choice(active_parties)
         
-        # Attempt to send
         success = protocol.attempt_send(sender, msg_length)
         
         if success:
@@ -124,17 +118,14 @@ def run_scenario_4(n, d, min_msg_length=1, max_msg_length=50):
     
     messages_sent = 0
     consecutive_failures = 0
-    max_consecutive_failures = 100  # Prevent infinite loops (4 parties, more attempts needed)
-    
+    max_consecutive_failures = 100 
+
     # Send messages until protocol terminates or all active parties can't send
     while not protocol.is_terminated() and consecutive_failures < max_consecutive_failures:
-        # Random message length
         msg_length = random.randint(min_msg_length, max_msg_length)
         
-        # Randomly choose which party sends
         sender = random.choice(active_parties)
         
-        # Attempt to send
         success = protocol.attempt_send(sender, msg_length)
         
         if success:

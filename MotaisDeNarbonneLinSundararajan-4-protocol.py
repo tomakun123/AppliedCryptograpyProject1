@@ -83,7 +83,6 @@ class Party:
                 return False
             
             # Safety condition: next_start > partner_last_index + d
-            # (Ensure gap of at least d pads between our message and partner's territory)
             if partner_has_sent:
                 if not (next_start > partner_last_index + d):
                     return False
