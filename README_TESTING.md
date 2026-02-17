@@ -3,6 +3,10 @@
 **Project 1 Applied Cryptography**  
 Thomas Motais De Narbonne, Raymond Lin, Kanthimathi Sundararajan
 
+## Requirements
+
+This project was built using Python 3.11 with standard libraries.
+
 ## Overview
 
 This testing suite evaluates the Parallel Pairs protocol through statistical simulations across three scenarios (S.1, S.2, S.4) to measure pad waste and compare against the static partition baseline.
