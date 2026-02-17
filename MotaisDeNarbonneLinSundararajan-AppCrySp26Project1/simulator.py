@@ -1,5 +1,7 @@
 import random
-from protocol import Protocol
+import importlib
+protocol_module = importlib.import_module("MotaisDeNarbonneLinSundararajan-4-protocol")
+Protocol = protocol_module.Protocol
 
 
 def run_scenario_1(n, d, min_msg_length=1, max_msg_length=50):
