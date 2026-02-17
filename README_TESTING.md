@@ -27,7 +27,7 @@ The simulation suite:
 Run the full simulation with default parameters (n=1000, d=10, 100 executions per scenario):
 
 ```bash
-python main.py
+python MotaisDeNarbonneLinSundararajan-4-testing.py
 ```
 
 **Expected output:**
@@ -43,25 +43,25 @@ The simulation supports extensive customization through CLI arguments:
 
 ```bash
 # Custom pad count
-python main.py --n 2000
+python MotaisDeNarbonneLinSundararajan-4-testing.py --n 2000
 
 # Custom gap parameter
-python main.py --d 20
+python MotaisDeNarbonneLinSundararajan-4-testing.py --d 20
 
 # Custom number of executions per scenario
-python main.py --executions 200
+python MotaisDeNarbonneLinSundararajan-4-testing.py --executions 200
 
 # Custom message length range (random between min and max)
-python main.py --min-msg-len 5 --max-msg-len 100
+python MotaisDeNarbonneLinSundararajan-4-testing.py --min-msg-len 5 --max-msg-len 100
 
 # Reproducible results with random seed
-python main.py --seed 42
+python MotaisDeNarbonneLinSundararajan-4-testing.py --seed 42
 
 # Combine multiple parameters
-python main.py --n 5000 --d 15 --executions 500 --seed 42
+python MotaisDeNarbonneLinSundararajan-4-testing.py --n 5000 --d 15 --executions 500 --seed 42
 
 # Quick test with fewer executions
-python main.py --executions 10
+python MotaisDeNarbonneLinSundararajan-4-testing.py --executions 10
 ```
 
 ### Available Arguments
