@@ -203,7 +203,7 @@ For comparison, a naive static partition approach gives each of the 4 parties ex
 
 Use `--seed` parameter to get consistent results:
 ```bash
-python main.py --seed 42
+python MotaisDeNarbonneLinSundararajan-4-testing.py --seed 42
 ```
 
 This sets the random number generator seed, ensuring:
