@@ -8,9 +8,10 @@ Thomas Motais De Narbonne, Raymond Lin, Kanthimathi Sundararajan
 
 ## Overview
 
-The Parallel Pairs protocol extends the 2-party one-time pad encryption to 4 parties while maintaining perfect secrecy and minimizing pad waste. This document describes the protocol implementation in `protocol.py`.
+The Parallel Pairs protocol extends the 2-party one-time pad encryption to 4 parties while maintaining perfect secrecy and minimizing pad waste. This document describes the protocol implementation in:
+`MotaisDeNarbonneLinSundararajan-4-protocol.py`.
 
-For testing details, see [README_TESTING.md](README_TESTING.md).
+For testing details, see [MotaisDeNarbonneLinSundararajan-4-READMEtesting.md](MotaisDeNarbonneLinSundararajan-4-READMEtesting.md).
 
 ## Protocol Design
 
